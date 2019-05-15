@@ -104,8 +104,8 @@
                 steering *= -1;
             }
             if (this._connected) {
-                this._ws.send(JSON.stringify(JSON.stringify({command: "stick_position", data: {'throttle': Math.round(throttle), 'steering': Math.round(steering)}}));
-                //console.log(JSON.stringify({command: "stick_position", data: {'throttle': Math.round(throttle), 'steering': Math.round(steering)}}))
+                this._ws.send(JSON.stringify({command: "stick_position", data: {'throttle': Math.round(throttle), 'steering': Math.round(steering)}});
+                //console.log(JSON.stringify({command: "stick_position", data: {'throttle': Math.round(throttle), 'steering': Math.round(steering)}});
             } else {
                 // console.log(JSON.stringify({command: "rc_channels", data: {'3': throttle_limited, '1': steering_limited}}))
             }
