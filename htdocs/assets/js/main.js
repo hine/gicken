@@ -261,5 +261,8 @@
     */
     window.onload = function() {
         console.log('処理開始');
+
+        // 遠隔コントローラのインスタンス生成
+        var remoteController = new RemoteController();
     };
 })((this || 0).self || global);
