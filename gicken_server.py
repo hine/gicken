@@ -81,7 +81,7 @@ class WebHandler(tornado.web.RequestHandler):
     """
     #@tornado.web.asynchronous
     async def get(self):
-        self.render("index.html")
+        self.render("client.html")
 
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
@@ -110,6 +110,8 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         return True
 
     def on_message(self, message):
+        # [TODO]:来週までには実装する
+
         print(message)
 
     def _send_message(self):
