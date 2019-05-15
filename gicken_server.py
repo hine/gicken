@@ -68,7 +68,7 @@ class Daemon(object):
         self.web_application.listen(8880)
         print('done')
 
-        print('Open http://gicken.creatorsnight.com:8888/')
+        print('Open http://gicken.creatorsnight.com:8880/')
         print('')
 
         # Tornadoメインループ

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="{{ static_url("css/main.css") }}">
+</head>
+<body>
+    <div id="remote-control">
+        <h1>REMOTE CONTROL</h1>
+        <div id="gamepad-select">
+            <select id="gamepad">
+                <option value="999">-- (利用しない) --</option>                        >
+            </select>
+        </div>
+        <div id="gamepad-enabler">
+            <input id="enable-gamepad" type="checkbox">
+            <label for="enable-gamepad">ゲームパッドを使う</label>
+        </div>
+        <div id="controller">
+            <div id="control-area">
+                <div id="stick-point">
+                </div>
+            </div>
+        </div>
+        <div id="limitter">
+            <div id="limitter-enabler">
+                <input id="enable-limit" type="checkbox" checked>
+                <label for="enable-limit">制限を有効にする</label>
+            </div>
+            <div id="limitter-range">
+                <input id="range" type="range" value="70" min="0" max="100" step="10">
+                <div id="limitter-value">70</div>%
+            </div>
+            <div id="throttle-reverse-setting">
+                <input id="throttle-reverse" type="checkbox" checked>
+                <label for="throttle-reverse">上下操作反転</label>
+            </div>
+            <div id="steering-reverse-setting">
+                <input id="steering-reverse" type="checkbox">
+                <label for="steering-reverse">左右操作反転</label>
+            </div>
+        </div>
+        <div id="control-buttons">
+            <div id="get-control">
+                <div>操作を奪う</div>
+            </div>
+        </div>
+    </div><!-- /remote-control -->
+    <script type="text/javascript" src="{{ static_url("js/main.js") }}"></script>
+</body>
