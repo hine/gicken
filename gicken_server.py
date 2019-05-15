@@ -115,11 +115,12 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
     def _send_message(self):
         websocket_message = {}
         websocket_message["robot_clients"] = len(self._robot_clients)
-        websocket_message["robot_clients"] = len(self._robot_clients)
+        websocket_message["clients"] = len(self._clients)
         websocket_message["stick_position"] = self._controller.get_stick_position
         websocket_message["enable_controll"] = False
         if self._controller.get_pilot == self:
             websocket_message["enable_controll"] = True
+        print(websocket_message)
         self.write_message(json.dumps(websocket_message))
 
     def on_close(self):
