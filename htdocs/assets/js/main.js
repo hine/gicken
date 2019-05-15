@@ -103,11 +103,9 @@
             if (document.getElementById("steering-reverse").checked) {
                 steering *= -1;
             }
-            var throttle_rc = 1500 + Math.round(throttle * 5);
-            var steering_rc = 1500 + Math.round(steering * 5);
             if (this._connected) {
-                this._ws.send(JSON.stringify({command: "rc_channels", data: {'3': throttle_rc, '1': steering_rc}}));
-                //console.log(JSON.stringify({command: "rc_channels", data: {'3': throttle_rc, '1': steering_rc}}))
+                //this._ws.send(JSON.stringify({command: "rc_channels", data: {'3': throttle_rc, '1': steering_rc}}));
+                console.log(JSON.stringify({command: "stick_position", data: {'throttle': Math.round(throttle), 'steering': Math.round(steering)}}))
             } else {
                 // console.log(JSON.stringify({command: "rc_channels", data: {'3': throttle_limited, '1': steering_limited}}))
             }
@@ -131,13 +129,8 @@
             this._ws.onclose = this._onClose.bind(this); // 接続を閉じたとき
         },
         _onConnect: function(event) {
-            this._connectButton.innerText = "DISCONNECT"
             this._connected = true;
-            this._disconectButtonClicked = false;
             this._sender = setInterval(this._intervalSender.bind(this), 250);
-            document.getElementById("state-icon").classList.add("connected");
-            document.getElementById("connection-state-value").textContent = "接続";
-            this._saveConfig();
         },
         _onError: function(event) {
             this._connectButton.innerText = "CONNECT"
@@ -146,33 +139,24 @@
         _onMessage: function(event) {
             // WebSocketでメッセージを受け取った時の処理をまとめて
             if (event && event.data) {
-                var ardupilotMessage = null;
+                var jsonMessage = null;
                 try {
-                    ardupilotMessage = JSON.parse(event.data);
+                    jsonMessage = JSON.parse(event.data);
                 } catch(e) {
                     alert('受け取ったメッセージの形式が不正です [message]:' + messageData['message']);
                 }
-                if (ardupilotMessage != null) {
-                    this._parseMessage(ardupilotMessage);
+                if (jsonMessage != null) {
+                    this._parseMessage(jsonMessage);
                 }
             }
         },
         _onClose: function(event) {
             this._connected = false;
-            this._connectButton.innerText = "CONNECT"
-            document.getElementById("state-icon").classList.remove("connected");
-            document.getElementById("connection-state-value").textContent = "未接続";
             clearInterval(this._sender);
-            if (!this._disconectButtonClicked) {
-                console.log("再接続");
-                setTimeout(function(){
-                    this._connect(document.getElementById("connect-parameter").value);
-                }.bind(this),500);
-            }
         },
-        _parseMessage: function(ardupilotMessage) {
-            var messageName = ardupilotMessage['message_name'];
-            var messageData = ardupilotMessage['message_data'];
+        _parseMessage: function(jsonMessage) {
+            var messageName = jsonMessage['message_name'];
+            var messageData = jsonMessage['message_data'];
             switch(messageName) {
                 case "GLOBAL_POSITION_INT":
                     messageData["lat"] *= 1.0e-7;
