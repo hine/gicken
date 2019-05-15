@@ -110,7 +110,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         return True
 
     def on_message(self, message):
-        pass
+        print(message)
 
     def _send_message(self):
         websocket_message = {}
@@ -120,7 +120,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         websocket_message["enable_controll"] = False
         if self._controller.get_pilot() == self:
             websocket_message["enable_controll"] = True
-        print(websocket_message)
+        #print(websocket_message)
         self.write_message(json.dumps(websocket_message))
 
     def on_close(self):

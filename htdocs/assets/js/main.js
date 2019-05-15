@@ -104,8 +104,8 @@
                 steering *= -1;
             }
             if (this._connected) {
-                //this._ws.send(JSON.stringify({command: "rc_channels", data: {'3': throttle_rc, '1': steering_rc}}));
-                console.log(JSON.stringify({command: "stick_position", data: {'throttle': Math.round(throttle), 'steering': Math.round(steering)}}))
+                this._ws.send(JSON.stringify(JSON.stringify({command: "stick_position", data: {'throttle': Math.round(throttle), 'steering': Math.round(steering)}}));
+                //console.log(JSON.stringify({command: "stick_position", data: {'throttle': Math.round(throttle), 'steering': Math.round(steering)}}))
             } else {
                 // console.log(JSON.stringify({command: "rc_channels", data: {'3': throttle_limited, '1': steering_limited}}))
             }
@@ -155,6 +155,8 @@
             clearInterval(this._sender);
         },
         _parseMessage: function(jsonMessage) {
+            console.log(jsonMessage);
+            /*
             var messageName = jsonMessage['message_name'];
             var messageData = jsonMessage['message_data'];
             switch(messageName) {
@@ -173,6 +175,7 @@
                     this._setSysstatusData(messageData);
                     break;
             }
+            */
         },
         _gamepadUpdate: function() {
             var pads = navigator.getGamepads ? navigator.getGamepads() :
